@@ -32,9 +32,11 @@ WHERE TIME < LENGTH;
 Получите информацию, за какой месяц была получена наибольшая сумма платежей, и добавьте информацию по количеству аренд за этот месяц.
 
 ```
-SELECT MONTH(p.payment_date) AS month, SUM(p.amount) AS 'total amount', count(p.rental_id) AS 'rentals by month'
+SELECT DATE_FORMAT(p.payment_date, '%Y-%m') AS month,
+       SUM(p.amount) AS 'total amount',
+       COUNT(p.rental_id) AS 'rentals by month'
 FROM payment p
-GROUP BY MONTH(p.payment_date)
+GROUP BY DATE_FORMAT(p.payment_date, '%Y-%m')
 ORDER BY SUM(p.amount) DESC
 LIMIT 1;
 ```
